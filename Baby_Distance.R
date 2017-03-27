@@ -20,6 +20,12 @@ for (i in 1:trials_to_run){
 	#Baby Chooses What to Do Next
 	if (distance==0){
 		distance<-sample(c(0,1), size = 1, prob = c(0.75, 0.25))
+
+		if (distance==0){
+			trial_history$At_Couch[i]<-1
+		}else{
+			trial_history$At_Couch[i]<-0
+	}
 	}else{
 		distance<-sample(c(distance-1, distance, distance+1), size = 1, prob = c(0.5, 0.25, 0.25))
 	}
@@ -27,12 +33,6 @@ for (i in 1:trials_to_run){
 	#Record State
 	trial_history$Trial[i]<-i
 	trial_history$Steps_Away[i]<-distance
-	if (distance==0){
-		trial_history$At_Couch[i]<-1
-	}else{
-		trial_history$At_Couch[i]<-0
-	}
-
 	trial_history$Percentage_Of_Time_At_Couch[i] <- sum(na.omit(trial_history$At_Couch))/i
 }
 
